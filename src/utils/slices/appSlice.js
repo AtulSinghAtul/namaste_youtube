@@ -20,5 +20,10 @@ const appSlice = createSlice({
   },
 });
 
-export const { toggleMenu, hideSideMenu, getCommentsData } = appSlice.actions;
+export const {
+  toggleMenu,
+  hideSideMenu,
+  getCommentsData,
+  addSearchSuggestions,
+} = appSlice.actions;
 export default appSlice.reducer;

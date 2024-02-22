@@ -6,3 +6,9 @@ export const YOUTUBE_VIDEOS_API =
 
 export const COMMENTS_ID =
   "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=";
+
+export const YOUTUBE_SUGGESTION_API =
+  "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
+
+export const YOUTUBE_SEARCH_VIDEO_API =
+  "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=";

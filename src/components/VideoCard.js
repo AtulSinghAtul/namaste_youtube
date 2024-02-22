@@ -15,4 +15,15 @@ const VideoCard = ({ info }) => {
   );
 };
 
+//! Higher Order Function
+export const AddVideoCard = ({ info }) => {
+  return (
+    <>
+      <div className="border-2 border-gray-500 rounded-lg">
+        <VideoCard info={info} />
+      </div>
+    </>
+  );
+};
+
 export default VideoCard;

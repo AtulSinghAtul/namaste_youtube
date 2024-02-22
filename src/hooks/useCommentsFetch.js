@@ -1,19 +1,24 @@
 import { useEffect } from "react";
 import { COMMENTS_ID, GOOGLE_API_KEY } from "../utils/constants";
 import { useDispatch } from "react-redux";
-import { getCommentsData } from "../utils/appSlice";
+import { getCommentsData } from "../utils/slices/appSlice";
 
 const useCommentsFetch = async (videoId) => {
   const dispatch = useDispatch();
 
-  const data = await fetch(COMMENTS_ID + videoId + "&key=" + GOOGLE_API_KEY);
-  const json = await data.json();
-  console.log(json);
+  async function commentsFetch() {
+    const data = await fetch(COMMENTS_ID + videoId + "&key=" + GOOGLE_API_KEY);
+    const json = await data.json();
 
-  // dispatch(getCommentsData(json));
+    dispatch(getCommentsData(json));
+  }
 
   useEffect(() => {
-    dispatch(getCommentsData(json));
+    try {
+      commentsFetch();
+    } catch (error) {
+      console.error("Error fetching comments", error);
+    }
   }, []);
 };
 
