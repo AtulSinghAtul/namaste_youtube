@@ -73,7 +73,7 @@ function Head() {
   }
 
   function handleSearchList(e) {
-    console.log("before clicked" + e.target);
+    console.log("before clicked" + e.target.value);
     //   console.log(e?.target?.innerText);
     // const data = await fetch(
     //   YOUTUBE_SEARCH_VIDEO_API + "home" + "&key=" + GOOGLE_API_KEY
@@ -115,13 +115,15 @@ function Head() {
           {showSearchModal && (
             <ul
               className="fixed bg-white p-4 mt-[32.2rem] md:-ml-[4rem] border border-gray-400 rounded-lg  md:w-[32%]"
-              onClick={console.log("clicked")}
+              onClick={handleSearchList}
             >
               {searchResults?.map((result) => (
                 <li
                   className="text-xl mb-4 hover:bg-slate-300 cursor-pointer hover:rounded-lg px-2 bg-red-400"
+                  value={result}
                   key={result}
                 >
+                  <span className="mr-4">🔍</span>
                   {result}
                   {/* {console.log(result)} */}
                 </li>
@@ -129,7 +131,7 @@ function Head() {
             </ul>
           )}
         </div>
-        <span className="mr-4">🔍</span>
+
         {/* <div value="Hello Atul" onClick={handleSearchList}>
           click on me
         </div> */}

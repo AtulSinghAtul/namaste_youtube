@@ -41,4 +41,10 @@ typing fast = 30ms
   - o of 1 is for better than o of n
   - searchin inside object `new Map()` is more optimize.
 
-  ## We will build n level nested comment
+  **Note:-** Search is using live api , search is using dbouncing and our search is using caching.
+
+## How we will build n level nested comment?
+
+- using recursion for building n level nested comment
+
+## What is LRU cache?
