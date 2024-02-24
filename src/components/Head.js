@@ -7,6 +7,8 @@ import {
   YOUTUBE_SUGGESTION_API,
 } from "../utils/constants";
 import { cacheSearchSuggestions } from "../utils/slices/cacheSearchSlice";
+import { addSearchText } from "../utils/slices/searchTextSlice";
+import { Link } from "react-router-dom";
 
 function Head() {
   const dispatch = useDispatch();
@@ -16,6 +18,7 @@ function Head() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [searchResults, setSearchResults] = useState();
+
   // console.log(cacheSearch);
   // console.log(cacheSearch[searchQuery]);
   //console.log("searchResults", searchResults);
@@ -72,19 +75,21 @@ function Head() {
     dispatch(toggleMenu());
   }
 
-  function handleSearchList(e) {
-    console.log("before clicked" + e.target.value);
-    //   console.log(e?.target?.innerText);
-    // const data = await fetch(
-    //   YOUTUBE_SEARCH_VIDEO_API + "home" + "&key=" + GOOGLE_API_KEY
-    // );
-    // const json = await data.json();
-    // console.log(json);
-    console.log("after clicked" + e.target.innerHTML);
+  async function handleSearchList(e) {
+    const searchText = e?.target?.innerText;
+    // console.log(e?.target?.innerText);
+    const data = await fetch(
+      YOUTUBE_SEARCH_VIDEO_API + searchText + "&key=" + GOOGLE_API_KEY
+    );
+    const json = await data.json();
+    console.log(json);
+
+    dispatch(addSearchText(json));
+    console.log("after clicked" + e?.target?.innerText);
   }
-  // useEffect(() => {
-  //   handleSearchList();
-  // }, []);
+  useEffect(() => {
+    handleSearchList();
+  }, []);
 
   return (
     <>
@@ -118,23 +123,23 @@ function Head() {
               onClick={handleSearchList}
             >
               {searchResults?.map((result) => (
-                <li
-                  className="text-xl mb-4 hover:bg-slate-300 cursor-pointer hover:rounded-lg px-2 bg-red-400"
-                  value={result}
-                  key={result}
-                >
-                  <span className="mr-4">🔍</span>
-                  {result}
-                  {/* {console.log(result)} */}
-                </li>
+                <Link key={result} to={"/searchResult"}>
+                  <div className="flex">
+                    <span className="mr-4">🔍</span>
+                    <li
+                      className="text-xl mb-4 hover:bg-slate-300 cursor-pointer hover:rounded-lg px-2 bg-red-400"
+                      value={result}
+                    >
+                      {result}
+                      {/* {console.log(result)} */}
+                    </li>
+                  </div>
+                </Link>
               ))}
             </ul>
           )}
         </div>
 
-        {/* <div value="Hello Atul" onClick={handleSearchList}>
-          click on me
-        </div> */}
         <div className="col-span-1 text-center self-center">
           <i className="fa-solid fa-user"></i>
         </div>

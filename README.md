@@ -48,3 +48,22 @@ typing fast = 30ms
 - using recursion for building n level nested comment
 
 ## What is LRU cache?
+
+## Building Live Chat?
+
+**Challenges:-**
+
+- Data Layer - Get data live
+- UI Layer - update the ui
+
+- Live chat >>>>>> infinite scroll >>> Pagination
+
+**Data Live:**
+
+- there are two ways we can handle live data
+
+- **1:- Web Socket:** Web socket is a two way connection ui and server side and this quickley send data from both of side so it's a by directional live data. websocket have `no regular interval`.
+  example:- Trading App, whatsapp
+
+- **2:- API Polling:** UI request the server and the data flow server to ui. It's one directional and API Polling `have interval`.
+  Example:- gmail, cricbuzz

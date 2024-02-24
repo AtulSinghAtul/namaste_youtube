@@ -12,3 +12,5 @@ export const YOUTUBE_SUGGESTION_API =
 
 export const YOUTUBE_SEARCH_VIDEO_API =
   "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=";
+
+export const LIVE_CHAT_COUNT = 20;

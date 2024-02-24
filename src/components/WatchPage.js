@@ -4,6 +4,7 @@ import { hideSideMenu } from "../utils/slices/appSlice";
 import { useSearchParams } from "react-router-dom";
 import useCommentsFetch from "../hooks/useCommentsFetch";
 import CommentsContainer from "./CommentsContainer";
+import LiveChat from "./LiveChat";
 
 const WatchPage = () => {
   const dispatch = useDispatch();
@@ -23,22 +24,26 @@ const WatchPage = () => {
   // console.log(a);
 
   return (
-    <div className="m-8 flex flex-col">
-      <iframe
-        width="1000"
-        height="400"
-        src={"https://www.youtube.com/embed/" + videoId}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      ></iframe>
+    <div className="m-8 flex flex-col w-full">
+      <div className="flex ">
+        <iframe
+          width="1000"
+          height="400"
+          src={"https://www.youtube.com/embed/" + videoId}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        ></iframe>
 
+        <LiveChat />
+      </div>
       <CommentsContainer />
 
       {/* <div>
         {commentsData?.items.map((item) => (
           <div key={item?.id}>
+            {console.log(item)}
             {item.snippet.topLevelComment.snippet.textOriginal}
           </div>
         ))}
