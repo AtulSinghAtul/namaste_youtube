@@ -67,3 +67,50 @@ typing fast = 30ms
 
 - **2:- API Polling:** UI request the server and the data flow server to ui. It's one directional and API Polling `have interval`.
   Example:- gmail, cricbuzz
+
+## useMemo()?
+
+- ### [useMemo doc](https://react.dev/reference/react/useMemo)
+
+- useMemo is a React Hook that lets you cache the result of a calculation between re-renders.
+
+```
+const cachedValue = useMemo(calculateValue, dependencies)
+```
+
+## useCallback
+
+- ### [useCallback](https://react.dev/reference/react/useCallback)
+
+- useCallback is a React Hook that lets you cache a function definition between re-renders.
+
+```
+const cachedFn = useCallback(fn, dependencies)
+```
+
+## useRef
+
+- ### [useRef](https://react.dev/reference/react/useRef)
+
+- useCallback is a React Hook that lets you cache a function definition between re-renders.
+
+```
+const ref = useRef(initialValue)
+```
+
+## what difference between normal js variable(let, const, var), state variable and useRef variable?
+
+- If normal js variable value `let a = 10` is changed it's not re-render the our comonent(function) and not update the value on ui but when we use state variable it's re-render the component and when this state re-render the component so our ui is update already with updated value, but if we use useRef it's not re-rendering the comonent it's persist or it's hold the value and when any got re-rendering, ref is update the our ui with new value.
+
+- So basically I want a variable which should not rest when my re-render happen but it's hold that value, still react should track it, this is our useRef().
+
+- ref is not like a normal variable , ref is like an object. Instead of a value when you create a useRef it comes an object with the current hardcoded inside it.
+
+```
+const ref = useRef(0);
+console.log (ref)// ref = {current: 0}
+```
+
+![alt text](useRef.png)
+![alt text](useRef-2.png)
+![alt text](useRef-3.png)

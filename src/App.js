@@ -11,6 +11,9 @@ import {
 import MainContainer from "./components/MainContainer";
 import WatchPage from "./components/WatchPage";
 import SearchText from "./components/SearchText";
+import MemoCallbackUseRefHook, {
+  Ref,
+} from "./components/MemoCallbackUseRefHook";
 
 const appRoute = createBrowserRouter([
   {
@@ -25,6 +28,16 @@ const appRoute = createBrowserRouter([
       {
         path: "/searchResult",
         element: <SearchText />,
+      },
+
+      {
+        path: "/memoCallbackUseRefHook",
+        element: (
+          <>
+            <MemoCallbackUseRefHook />
+            <Ref />
+          </>
+        ),
       },
     ],
   },
