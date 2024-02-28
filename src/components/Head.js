@@ -19,10 +19,6 @@ function Head() {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [searchResults, setSearchResults] = useState();
 
-  // console.log(cacheSearch);
-  // console.log(cacheSearch[searchQuery]);
-  //console.log("searchResults", searchResults);
-
   useEffect(() => {
     //API Call
 
@@ -34,6 +30,7 @@ function Head() {
     const timer = setTimeout(() => {
       //! Caching
       if (cacheSearch[searchQuery]) {
+        console.log(cacheSearch[searchQuery]);
         setSearchResults(cacheSearch[searchQuery]);
       } else {
         getSearchSuggestions();
@@ -75,17 +72,27 @@ function Head() {
     dispatch(toggleMenu());
   }
 
-  async function handleSearchList(e) {
-    const searchText = e?.target?.innerText;
-    // console.log(e?.target?.innerText);
+  async function handleSearchList(event) {
+    event?.preventDefault();
+    event?.stopPropagation();
+
+    console.log("clicked...");
+
+    const searchText = event?.target?.innerText;
+
+    console.log(event?.target?.innerText);
+
     const data = await fetch(
       YOUTUBE_SEARCH_VIDEO_API + searchText + "&key=" + GOOGLE_API_KEY
     );
+
     const json = await data.json();
+
     console.log(json);
 
     dispatch(addSearchText(json));
-    console.log("after clicked" + e?.target?.innerText);
+
+    console.log("after clicked " + event?.target?.innerText);
   }
   useEffect(() => {
     handleSearchList();
@@ -112,32 +119,36 @@ function Head() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => setShowSearchModal(true)}
-            onBlur={() => setShowSearchModal(false)}
+            onBlur={() => setShowSearchModal(true)}
           />
           <button className="border border-gray-400 px-6 py-2 rounded-r-full">
             🔍
           </button>
-          {showSearchModal && (
+
+          <p
+            onClick={handleSearchList}
+            className="w-32 h-20 bg-slate-600 text-white"
+          >
+            <Link to={"/searchResult"}>Kya hua</Link>
+          </p>
+
+          {/* {showSearchModal && (
             <ul
-              className="fixed bg-white p-4 mt-[32.2rem] md:-ml-[4rem] border border-gray-400 rounded-lg  md:w-[32%]"
-              onClick={handleSearchList}
+              className="fixed bg-red-600 p-4 mt-[32.2rem] md:-ml-[4rem] border border-gray-400 rounded-lg  md:w-[32%]"
+              onClick={() => console.log("ul")}
             >
-              {searchResults?.map((result) => (
-                <Link key={result} to={"/searchResult"}>
-                  <div className="flex">
-                    <span className="mr-4">🔍</span>
-                    <li
-                      className="text-xl mb-4 hover:bg-slate-300 cursor-pointer hover:rounded-lg px-2 bg-red-400"
-                      value={result}
-                    >
-                      {result}
-                      {/* {console.log(result)} */}
-                    </li>
-                  </div>
-                </Link>
+              {searchResults?.map((result, index) => (
+                <li
+                  className="text-xl mb-4 hover:bg-slate-300 cursor-pointer hover:rounded-lg px-2 bg-red-400 h-full w-full"
+                  key={index}
+                >
+                  <Link to={"/searchResult"} onClick={handleSearchList}>
+                    <p className="h-full w-full bg-white">{result}</p>
+                  </Link>
+                </li>
               ))}
             </ul>
-          )}
+          )} */}
         </div>
 
         <div className="col-span-1 text-center self-center">

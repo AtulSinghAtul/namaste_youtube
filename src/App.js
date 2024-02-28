@@ -3,55 +3,60 @@ import Head from "./components/Head";
 import Body from "./components/Body";
 import { Provider } from "react-redux";
 import store from "./utils/stores/store";
-import {
-  BrowserRouter,
-  RouterProvider,
-  createBrowserRouter,
-} from "react-router-dom";
-import MainContainer from "./components/MainContainer";
-import WatchPage from "./components/WatchPage";
-import SearchText from "./components/SearchText";
-import MemoCallbackUseRefHook, {
-  Ref,
-} from "./components/MemoCallbackUseRefHook";
+import { BrowserRouter } from "react-router-dom";
 
-const appRoute = createBrowserRouter([
-  {
-    path: "/",
-    element: <Body />,
-    children: [
-      { path: "/", element: <MainContainer /> },
-      {
-        path: "/watch",
-        element: <WatchPage />,
-      },
-      {
-        path: "/searchResult",
-        element: <SearchText />,
-      },
+// import {
+// BrowserRouter,
+//   RouterProvider,
+//   createBrowserRouter,
+// } from "react-router-dom";
+// import MainContainer from "./components/MainContainer";
+// import WatchPage from "./components/WatchPage";
+// import SearchText from "./components/SearchText";
+// import MemoCallbackUseRefHook, {
+//   Ref,
+// } from "./components/MemoCallbackUseRefHook";
 
-      {
-        path: "/memoCallbackUseRefHook",
-        element: (
-          <>
-            <MemoCallbackUseRefHook />
-            <Ref />
-          </>
-        ),
-      },
-    ],
-  },
-]);
+// const appRoute = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Body />,
+//     children: [
+//       { path: "/", element: <MainContainer /> },
+//       {
+//         path: "/watch",
+//         element: <WatchPage />,
+//       },
+//       {
+//         path: "/searchResult",
+//         element: <SearchText />,
+//       },
+
+//       {
+//         path: "/memoCallbackUseRefHook",
+//         element: (
+//           <>
+//             <MemoCallbackUseRefHook />
+//             <Ref />
+//           </>
+//         ),
+//       },
+//     ],
+//   },
+// ]);
 
 function App() {
   return (
     <Provider store={store}>
-      <div className="App w-screen">
-        <BrowserRouter>
+      <BrowserRouter>
+        <div className="App w-screen">
+          {/* <BrowserRouter> */}
           <Head />
-        </BrowserRouter>
-        <RouterProvider router={appRoute} />
-      </div>
+          {/* </BrowserRouter> */}
+          {/* <RouterProvider router={appRoute} /> */}
+          <Body />
+        </div>
+      </BrowserRouter>
     </Provider>
   );
 }

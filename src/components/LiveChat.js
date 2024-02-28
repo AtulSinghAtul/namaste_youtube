@@ -28,8 +28,9 @@ const LiveChat = () => {
 
   return (
     <div className="border border-gray-700 w-[50%] h-[400px] ml-2 overflow-y-scroll flex flex-col-reverse  -z-10 bg-slate-100">
-      {liveMessage?.map((c) => (
-        <LiveChatMessage name={c.name} message={c.message} />
+      {liveMessage?.map((c, index) => (
+        //! Don't use indexes for key
+        <LiveChatMessage key={index} name={c.name} message={c.message} />
       ))}
     </div>
   );
