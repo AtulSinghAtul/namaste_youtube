@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 function Head() {
   const dispatch = useDispatch();
   const cacheSearch = useSelector((store) => store.cache);
-  // console.log(cacheSearch);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchModal, setShowSearchModal] = useState(false);
@@ -27,10 +26,9 @@ function Head() {
     // Decline the API call
 
     //! Debouncing
-    const timer = setTimeout(() => {
+    const deboncingTimer = setTimeout(() => {
       //! Caching
       if (cacheSearch[searchQuery]) {
-        console.log(cacheSearch[searchQuery]);
         setSearchResults(cacheSearch[searchQuery]);
       } else {
         getSearchSuggestions();
@@ -38,7 +36,7 @@ function Head() {
     }, 200);
 
     return () => {
-      clearTimeout(timer);
+      clearTimeout(deboncingTimer);
     };
   }, [searchQuery]);
 
@@ -58,14 +56,13 @@ function Head() {
   */
 
   async function getSearchSuggestions() {
-    // console.log("API Call- " + searchQuery);
     const data = await fetch(YOUTUBE_SUGGESTION_API + searchQuery);
+
     const json = await data.json();
     setSearchResults(json[1]);
-    // console.log(json[1]);
+
     //! Handle Caching
     dispatch(cacheSearchSuggestions({ [searchQuery]: json[1] }));
-    // console.log(json);
   }
 
   function toggleMenuBarHandler() {
@@ -74,13 +71,8 @@ function Head() {
 
   async function handleSearchList(event) {
     event?.preventDefault();
-    event?.stopPropagation();
-
-    console.log("clicked...");
 
     const searchText = event?.target?.innerText;
-
-    console.log(event?.target?.innerText);
 
     const data = await fetch(
       YOUTUBE_SEARCH_VIDEO_API + searchText + "&key=" + GOOGLE_API_KEY
@@ -88,11 +80,7 @@ function Head() {
 
     const json = await data.json();
 
-    console.log(json);
-
     dispatch(addSearchText(json));
-
-    console.log("after clicked " + event?.target?.innerText);
   }
   useEffect(() => {
     handleSearchList();
@@ -118,37 +106,41 @@ function Head() {
             className="w-6/12 border border-gray-400 px-6 py-2 rounded-l-full "
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            onFocus={() => setShowSearchModal(true)}
-            onBlur={() => setShowSearchModal(true)}
+            onFocus={(event) => {
+              event.preventDefault();
+              setTimeout(() => {
+                setShowSearchModal(true);
+                console.log("set timeout call ho rha hai");
+              }, 800);
+            }}
+            onBlur={(event) => {
+              event.preventDefault();
+              setTimeout(() => {
+                setShowSearchModal(false);
+                console.log("set timeout call ho rha hai");
+              }, 120);
+            }}
           />
           <button className="border border-gray-400 px-6 py-2 rounded-r-full">
             🔍
           </button>
 
-          <p
-            onClick={handleSearchList}
-            className="w-32 h-20 bg-slate-600 text-white"
-          >
-            <Link to={"/searchResult"}>Kya hua</Link>
-          </p>
-
-          {/* {showSearchModal && (
+          {showSearchModal && (
             <ul
               className="fixed bg-red-600 p-4 mt-[32.2rem] md:-ml-[4rem] border border-gray-400 rounded-lg  md:w-[32%]"
-              onClick={() => console.log("ul")}
+              onClick={() => console.log("bubbling ho rha hai")}
             >
               {searchResults?.map((result, index) => (
                 <li
                   className="text-xl mb-4 hover:bg-slate-300 cursor-pointer hover:rounded-lg px-2 bg-red-400 h-full w-full"
                   key={index}
+                  onClick={handleSearchList}
                 >
-                  <Link to={"/searchResult"} onClick={handleSearchList}>
-                    <p className="h-full w-full bg-white">{result}</p>
-                  </Link>
+                  <Link to={"/searchResult"}>{result}</Link>
                 </li>
               ))}
             </ul>
-          )} */}
+          )}
         </div>
 
         <div className="col-span-1 text-center self-center">

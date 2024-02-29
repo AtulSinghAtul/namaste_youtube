@@ -3,13 +3,12 @@ import Head from "./components/Head";
 import Body from "./components/Body";
 import { Provider } from "react-redux";
 import store from "./utils/stores/store";
-import { BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import SearchText from "./components/SearchText";
+import MainContainer from "./components/MainContainer";
+import WatchPage from "./components/WatchPage";
 
-// import {
-// BrowserRouter,
-//   RouterProvider,
-//   createBrowserRouter,
-// } from "react-router-dom";
+// import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // import MainContainer from "./components/MainContainer";
 // import WatchPage from "./components/WatchPage";
 // import SearchText from "./components/SearchText";
@@ -48,15 +47,16 @@ import { BrowserRouter } from "react-router-dom";
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <div className="App w-screen">
-          {/* <BrowserRouter> */}
-          <Head />
-          {/* </BrowserRouter> */}
-          {/* <RouterProvider router={appRoute} /> */}
-          <Body />
-        </div>
-      </BrowserRouter>
+      <div className="App w-screen">
+        <Head />
+        <Routes>
+          <Route path="/" element={<Body />}>
+            <Route path="/" element={<MainContainer />} />
+            <Route path={"/watch"} element={<WatchPage />} />
+            <Route path="/searchResult" element={<SearchText />} />
+          </Route>
+        </Routes>
+      </div>
     </Provider>
   );
 }

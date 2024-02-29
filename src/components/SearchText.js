@@ -1,17 +1,23 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import SearchSuggestionVideos from "./SearchSuggestionVideos";
+import { Link } from "react-router-dom";
+import ButtonList from "./ButtonList";
 
-const SearchText = () => {
+const VideoSuggesctionContainer = () => {
   const searchText = useSelector((store) => store?.searchText?.text);
-  console.log(searchText);
 
   return (
     <div className="flex flex-wrap gap-4">
+      <ButtonList />
       {searchText?.items?.map((item) => (
-        <img className="" src={item?.snippet?.thumbnails?.medium?.url} alt="" />
+        <div>
+          <Link to={"/watch?v=" + item.id.videoId}>
+            <SearchSuggestionVideos key={item.id.videoId} item={item} />
+          </Link>
+        </div>
       ))}
     </div>
   );
 };
-
-export default SearchText;
+export default VideoSuggesctionContainer;

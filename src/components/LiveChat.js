@@ -9,8 +9,6 @@ const LiveChat = () => {
   const dispatch = useDispatch();
   const liveMessage = useSelector((store) => store.liveChat.name);
 
-  // console.log(liveMessage);
-
   useEffect(() => {
     //! API Polling
 
