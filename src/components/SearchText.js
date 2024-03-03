@@ -11,11 +11,9 @@ const VideoSuggesctionContainer = () => {
     <div className="flex flex-wrap gap-4">
       <ButtonList />
       {searchText?.items?.map((item) => (
-        <div>
-          <Link to={"/watch?v=" + item.id.videoId}>
-            <SearchSuggestionVideos key={item.id.videoId} item={item} />
-          </Link>
-        </div>
+        <Link to={"/watch?v=" + item.id.videoId} key={item.id.videoId}>
+          <SearchSuggestionVideos item={item} />
+        </Link>
       ))}
     </div>
   );

@@ -13,7 +13,11 @@ const SearchSuggestionVideos = ({ item }) => {
         />
         <div className="flex flex-col gap-4">
           <h1 className="text-xl font-bold">{title}</h1>
-          <span>{channelTitle}</span>
+          <div>
+            {/* <img src={url} alt="" /> */}
+            <span>{channelTitle}</span>
+          </div>
+
           <p>{description}</p>
         </div>
       </div>
